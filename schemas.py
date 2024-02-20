@@ -7,7 +7,3 @@ class CurrencyBase(BaseModel):
 
     class Config:
         orm_mode = True
-
-class CreateCurrency(CurrencyBase):
-    class Config:
-        orm_mode = True
