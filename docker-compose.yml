@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  web:
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bash -c 'alembic revision --autogenerate -m "Init Migration" && alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 80'
+    depends_on:
+      - db
+    ports:
+      - "8000:80"
+#    volumes:
+#      - ./:/app
+    env_file:
+      - docker.env
+    networks:
+      - api_network
+  db:
+    image: postgres:16-alpine
+    container_name: postgres_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+#    expose:
+#      - 5432
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+      POSTGRES_DB: dev
+    networks:
+      - api_network
+
+
+volumes:
+  postgres_data:
+
+networks:
+  api_network:
+    driver: bridge
