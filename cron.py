@@ -1,5 +1,5 @@
 from crontab import CronTab
-from database import seed_db
+
 
 cron = CronTab(user=True)
 
