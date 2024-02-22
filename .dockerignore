@@ -1,5 +1,7 @@
 */venv
-*/alembic/versions
 */alembic/README
-*/alembic/script.py.mako
 dev.env
+example.env
+docker.env
+.gitignore
+README.md

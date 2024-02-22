@@ -24,11 +24,11 @@ async def startup(db: Session = Depends(get_db)):
 async def read_root(from_cur:str, to_cur:str, amount:float, db: Session = Depends((get_db))):
 
     from_cur_data = db.query(models.Currency)\
-        .filter(models.Currency.name == from_cur)\
+        .filter(models.Currency.name == from_cur.strip().upper())\
         .order_by(models.Currency.date.desc()).first()
 
     to_cur_data = db.query(models.Currency).\
-        filter(models.Currency.name == to_cur).\
+        filter(models.Currency.name == to_cur.strip().upper()).\
         order_by(models.Currency.date.desc()).first()
 
     if not from_cur_data or not to_cur_data:
