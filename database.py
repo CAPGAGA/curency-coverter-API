@@ -20,6 +20,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 
+# create session for database
 def get_db():
     db = SessionLocal()
     try:
@@ -27,7 +28,7 @@ def get_db():
     finally:
         db.close()
 
-
+# seed database with new conversion rates
 def seed_db():
     from models import Currency
     with Session(bind=engine) as session:
